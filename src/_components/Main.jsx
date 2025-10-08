@@ -1,21 +1,30 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 const Main = () => {
     const [nasa,setNasa]=useState()
-    const fecthDataNasa = async() =>{
-    try {
-        const res = await axios.get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY");
-        if(res.status === 200){
-            setNasa(res.data)
+    const NASA_API_KEY = process.env.REACT_APP_NASA_KEY;
+    const fecthDataNasa = useCallback(async () => {
+        try {
+            const res = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`);
+            if (res.status === 200) {
+                setNasa(res.data)
+            }
+        } catch (err) {
+            console.error(err)
         }
-    } catch (err) {
-        console.error(err)
-    }
-    }
-    useEffect(()=>{
+    }, [NASA_API_KEY]); 
+
+    useEffect(() => {
         fecthDataNasa();
-    },[])
+    }, [fecthDataNasa]);
+    if (!nasa) {
+        return (
+            <div className='loading-screen'>
+                <p>NASA verileri yükleniyor...</p>
+            </div>
+        );
+    }
   return (
     <div className='main-section'>
         <div className="container">
