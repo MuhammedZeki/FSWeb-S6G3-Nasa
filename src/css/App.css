@@ -1,0 +1,21 @@
+.container{
+    width: 80%;
+    margin: 0 auto;
+    padding: 1rem 1.2rem;
+}
+.main-header{
+    background-color: #969494;
+}
+.header-items{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    align-items: center;
+}
+.header-items img{
+    width: 150px;
+    object-fit: contain;
+}
+.header-content{
+    color: rgb(245, 245, 230);
+}
